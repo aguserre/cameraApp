@@ -134,7 +134,18 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXA-Ue-0vv">
                                         <rect key="frame" x="5" y="5" width="325" height="190"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-FZ-sH6">
+                                                <rect key="frame" x="0.0" y="0.0" width="325" height="190"/>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="rX0-FZ-sH6" secondAttribute="trailing" id="A3M-X3-zTd"/>
+                                            <constraint firstItem="rX0-FZ-sH6" firstAttribute="leading" secondItem="ZXA-Ue-0vv" secondAttribute="leading" id="DRF-G6-x2I"/>
+                                            <constraint firstItem="rX0-FZ-sH6" firstAttribute="top" secondItem="ZXA-Ue-0vv" secondAttribute="top" id="fYx-y7-Uq1"/>
+                                            <constraint firstAttribute="bottom" secondItem="rX0-FZ-sH6" secondAttribute="bottom" id="iFA-TD-fFY"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -176,6 +187,9 @@
                                 <state key="normal" title="Tomar otra foto">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="takeAnotherPhoto:" destination="hSZ-Aa-cXm" eventType="touchUpInside" id="KaG-ya-62O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1662188768" green="0.051874928180000002" blue="0.21503764389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -202,6 +216,7 @@
                         <outlet property="cameraButton" destination="SkS-7x-47Q" id="AT5-JD-kow"/>
                         <outlet property="cameraView" destination="ZXA-Ue-0vv" id="dmH-uh-Rd0"/>
                         <outlet property="cancelButton" destination="ENf-6x-hsE" id="I8b-Jb-nYj"/>
+                        <outlet property="capturedImage" destination="rX0-FZ-sH6" id="Ycd-BD-UNX"/>
                         <outlet property="infoLabel" destination="M22-bA-luB" id="3ef-q1-fdV"/>
                         <outlet property="titleLabel" destination="6Zi-PT-pAY" id="BXL-cb-7O3"/>
                     </connections>
