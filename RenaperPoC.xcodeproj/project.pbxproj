@@ -16,6 +16,7 @@
 		0F7F96C024080CC600EA753E /* DniScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */; };
 		0F7F96C22408447A00EA753E /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C12408447A00EA753E /* GradientExtension.swift */; };
 		0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C324085C9500EA753E /* QRScannerViewController.swift */; };
+		0F7F96C62408646000EA753E /* dniDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C52408646000EA753E /* dniDataObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DniScannerViewController.swift; sourceTree = "<group>"; };
 		0F7F96C12408447A00EA753E /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		0F7F96C324085C9500EA753E /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		0F7F96C52408646000EA753E /* dniDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dniDataObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */,
 				0F7F96C12408447A00EA753E /* GradientExtension.swift */,
 				0F7F96C324085C9500EA753E /* QRScannerViewController.swift */,
+				0F7F96C52408646000EA753E /* dniDataObject.swift */,
 			);
 			path = RenaperPoC;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */,
 				0F7F96C024080CC600EA753E /* DniScannerViewController.swift in Sources */,
 				0F7F96A62407F8AD00EA753E /* AppDelegate.swift in Sources */,
+				0F7F96C62408646000EA753E /* dniDataObject.swift in Sources */,
 				0F7F96A82407F8AD00EA753E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

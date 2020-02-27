@@ -12,12 +12,12 @@ import AVFoundation
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     var video = AVCaptureVideoPreviewLayer()
+    let session = AVCaptureSession()
+    let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    var dniObject: dniDataObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let session = AVCaptureSession()
-        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
@@ -43,11 +43,22 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         if metadataObjects.count != 0{
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject{
                 if object.type == AVMetadataObject.ObjectType.pdf417{
-                    print(object.stringValue)
+                    
+                    if let objectString = object.stringValue {
+                        let objects: [String] = objectString.components(separatedBy: "@")
+                        dniObject = dniDataObject()
+                        dniObject?.processNumber = objects[0]
+                        dniObject?.lastName = objects[1]
+                        dniObject?.name = objects[2]
+                        dniObject?.sex = objects[3]
+                        dniObject?.dniNumber = objects[4]
+                        dniObject?.copy = objects[5]
+                        dniObject?.birthDate = objects[6]
+                        dniObject?.createDate = objects[7]
+                    }
                 }
             }
         }
+        session.stopRunning()
     }
-
-
 }
