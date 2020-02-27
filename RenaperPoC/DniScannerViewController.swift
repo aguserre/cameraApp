@@ -26,27 +26,8 @@ class DniScannerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        captureSession.beginConfiguration()
-        let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-        guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!), captureSession.canAddInput(videoDeviceInput)
-            else {return}
-        captureSession.addInput(videoDeviceInput)
-        
-        let photoOutput = AVCapturePhotoOutput()
-        guard captureSession.canAddOutput(photoOutput) else {return}
-        
-        captureSession.sessionPreset = .photo
-        captureSession.addOutput(photoOutput)
-        
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        previewLayer?.frame = cameraView.bounds
-        cameraView.layer.addSublayer(previewLayer!)
-       
-        captureSession.commitConfiguration()
-        captureSession.startRunning()
+        setupView()
+        setupCamera()
         
     }
     
@@ -55,6 +36,36 @@ class DniScannerViewController: UIViewController {
         
     }
     
+    private func setupView(){
+        backgroundCameraView.layer.cornerRadius = 5
+        cameraView.layer.cornerRadius = 5
+        cancelButton.isHidden = true
+        titleLabel.text = "Ubicá el frente de tu DNI dentro del marco blanco"
+        infoLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos."
+    }
+    
+    private func setupCamera() {
+         captureSession.beginConfiguration()
+         let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!), captureSession.canAddInput(videoDeviceInput)
+             else {return}
+         captureSession.addInput(videoDeviceInput)
+         
+         let photoOutput = AVCapturePhotoOutput()
+         guard captureSession.canAddOutput(photoOutput) else {return}
+         
+         captureSession.sessionPreset = .photo
+         captureSession.addOutput(photoOutput)
+         
+         
+         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+         previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+         previewLayer?.frame = cameraView.bounds
+         cameraView.layer.addSublayer(previewLayer!)
+        
+         captureSession.commitConfiguration()
+         captureSession.startRunning()
+    }
     
     @IBAction func capturePicture(_ sender: Any) {
     }
