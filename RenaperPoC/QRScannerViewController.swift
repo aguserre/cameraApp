@@ -32,6 +32,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupView()
         setupCamera()
 
@@ -60,6 +61,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func setupViewToTakeSecondPhoto() {
+        self.backgroundCameraView.backgroundColor = .white
         self.cameraButton.isHidden = false
         self.isSecondImage = true
         self.continueButton.isHidden = true

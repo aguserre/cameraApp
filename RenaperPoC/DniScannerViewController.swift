@@ -27,6 +27,7 @@ class DniScannerViewController: UIViewController {
     @IBOutlet weak var cameraButton: UIButton!    
     
     override func viewDidLoad() {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         super.viewDidLoad()
         print("SelfieView:")
 
