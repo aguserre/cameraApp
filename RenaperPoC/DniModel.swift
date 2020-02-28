@@ -1,5 +1,5 @@
 //
-//  dniDataObject.swift
+//  DniModel.swift
 //  RenaperPoC
 //
 //  Created by AGUSTIN ERRECALDE on 27/02/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class dniDataObject{
+class DniModel{
     
     var processNumber: String?
     var lastName: String?

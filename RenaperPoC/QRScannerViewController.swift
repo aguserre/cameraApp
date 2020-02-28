@@ -12,19 +12,64 @@ import AVFoundation
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     var video = AVCaptureVideoPreviewLayer()
+    let photoOutput = AVCapturePhotoOutput()
     let session = AVCaptureSession()
     let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-    var dniObject: dniDataObject?
+    var photos: [UIImage]?
+    var dniObject: DniModel?
+    var isSecondImage = false
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var capturedImage: UIImageView!
+    @IBOutlet weak var backgroundCameraView: UIView!
+    
+    @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var takeAnotherPhotoButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        setupCamera()
+
+    }
+    
+    func setupView() {
+        self.continueButton.isHidden = true
+        self.takeAnotherPhotoButton.isHidden = true
+        self.capturedImage.isHidden = true
+        titleLabel.text = "Ubicá el frente de tu DNI dentro del marco blanco"
+        subtitleLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos"
+    }
+    
+    func setupViewAfterTakeFirstPhoto() {
+        titleLabel.text = "Confirmá la foto del DNI"
+        self.backgroundCameraView.backgroundColor = .systemPurple
+        self.cameraButton.isHidden = true
+        self.continueButton.isHidden = false
+        self.takeAnotherPhotoButton.isHidden = false
+        self.capturedImage.isHidden = false
+        continueButton.layer.cornerRadius = 25
+        continueButton.clipsToBounds = true
+        continueButton.layer.borderWidth = 1
+        continueButton.layer.borderColor = UIColor.white.cgColor
+
+    }
+    
+    func setupCamera() {
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
             session.addInput(input)
         }catch{
             print(error.localizedDescription)
         }
+        
+        guard session.canAddOutput(photoOutput) else {return}
+        session.sessionPreset = .photo
+        session.addOutput(photoOutput)
         
         let output = AVCaptureMetadataOutput()
         session.addOutput(output)
@@ -33,11 +78,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         output.metadataObjectTypes = [AVMetadataObject.ObjectType.pdf417]
         
         video = AVCaptureVideoPreviewLayer(session: session)
-        video.frame = view.layer.bounds
-        view.layer.addSublayer(video)
+        video.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        video.frame = cameraView.bounds
+        cameraView.layer.addSublayer(video)
         
         session.startRunning()
     }
+    
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if metadataObjects.count != 0{
@@ -46,7 +93,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                     
                     if let objectString = object.stringValue {
                         let objects: [String] = objectString.components(separatedBy: "@")
-                        dniObject = dniDataObject()
+                        dniObject = DniModel()
                         dniObject?.processNumber = objects[0]
                         dniObject?.lastName = objects[1]
                         dniObject?.name = objects[2]
@@ -59,6 +106,56 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 }
             }
         }
-        session.stopRunning()
+    }
+    
+    @IBAction func capturePhoto(_ sender: Any) {
+        
+        let photoSettings = AVCapturePhotoSettings()
+        if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
+            photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: firstAvailablePreviewPhotoPixelFormatTypes]
+        }
+        photoOutput.capturePhoto(with: photoSettings, delegate: self)
+    }
+    
+    @IBAction func continueToSecondImage(_ sender: Any) {
+        
+        //Take second image
+        
+    }
+}
+
+extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
+
+    func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+
+        if let error = error {
+            print("Error capturing photo: \(error)")
+        } else {
+            if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
+
+                if let image = UIImage(data: dataImage) {
+                    self.backgroundCameraView.backgroundColor = .systemPurple
+                    self.session.stopRunning()
+                    self.cameraButton.isHidden = true
+                    self.capturedImage.isHidden = false
+                    self.photos?.append(image)
+                    self.capturedImage.image = image
+                }
+            }
+        }
+
+    }
+
+    @available(iOS 11.0, *)
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+
+        guard let data = photo.fileDataRepresentation(),
+              let image =  UIImage(data: data)  else {
+                return
+        }
+        setupViewAfterTakeFirstPhoto()
+        self.session.stopRunning()
+        self.photos?.append(image)
+        self.capturedImage.image = image
     }
 }
