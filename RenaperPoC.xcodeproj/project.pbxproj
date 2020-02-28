@@ -18,9 +18,11 @@
 		0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C324085C9500EA753E /* QRScannerViewController.swift */; };
 		0F7F96C62408646000EA753E /* DniModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C52408646000EA753E /* DniModel.swift */; };
 		0FBF5CDB24096A1400D2E66C /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */; };
+		5E58FEE495B8A118740E1D2B /* Pods_RenaperPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RenaperPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A22407F8AD00EA753E /* RenaperPoC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenaperPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A52407F8AD00EA753E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F7F96A72407F8AD00EA753E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +36,8 @@
 		0F7F96C324085C9500EA753E /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		0F7F96C52408646000EA753E /* DniModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DniModel.swift; sourceTree = "<group>"; };
 		0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		76E1CD6924081E09A697442C /* Pods-RenaperPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenaperPoC.release.xcconfig"; path = "Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC.release.xcconfig"; sourceTree = "<group>"; };
+		8E6F17C11E32BA797A1C88DB /* Pods-RenaperPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenaperPoC.debug.xcconfig"; path = "Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E58FEE495B8A118740E1D2B /* Pods_RenaperPoC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +57,8 @@
 			children = (
 				0F7F96A42407F8AD00EA753E /* RenaperPoC */,
 				0F7F96A32407F8AD00EA753E /* Products */,
+				23DB20C8B1BE0EBB9C0544EB /* Pods */,
+				743F5C518760EAA5E3E07F9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +89,24 @@
 			path = RenaperPoC;
 			sourceTree = "<group>";
 		};
+		23DB20C8B1BE0EBB9C0544EB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E6F17C11E32BA797A1C88DB /* Pods-RenaperPoC.debug.xcconfig */,
+				76E1CD6924081E09A697442C /* Pods-RenaperPoC.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		743F5C518760EAA5E3E07F9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,9 +114,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F7F96B62407F8AF00EA753E /* Build configuration list for PBXNativeTarget "RenaperPoC" */;
 			buildPhases = (
+				9D418D71A211DB700B5FC9AC /* [CP] Check Pods Manifest.lock */,
 				0F7F969E2407F8AD00EA753E /* Sources */,
 				0F7F969F2407F8AD00EA753E /* Frameworks */,
 				0F7F96A02407F8AD00EA753E /* Resources */,
+				3AA18D02F8824F6B868B4770 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,6 +174,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3AA18D02F8824F6B868B4770 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D418D71A211DB700B5FC9AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RenaperPoC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F7F969E2407F8AD00EA753E /* Sources */ = {
@@ -302,6 +371,7 @@
 		};
 		0F7F96B72407F8AF00EA753E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E6F17C11E32BA797A1C88DB /* Pods-RenaperPoC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -320,6 +390,7 @@
 		};
 		0F7F96B82407F8AF00EA753E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76E1CD6924081E09A697442C /* Pods-RenaperPoC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
