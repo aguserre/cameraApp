@@ -28,6 +28,7 @@ class DniScannerViewController: UIViewController {
     
     override func viewDidLoad() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
         print("SelfieView:")
 

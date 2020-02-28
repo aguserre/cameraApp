@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     }
 
     private func configureView(){
+        self.navigationController?.navigationBar.isHidden = true
         centralImage.image = UIImage(named: "welcomeBackground")
         bigTitleLabel.text = "Validemos tu identidad"
         subtitleLabel.text = "Busca tu DNI para tomarle unas fotos y preparate para una selfie."
