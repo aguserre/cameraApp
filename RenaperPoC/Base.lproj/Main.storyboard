@@ -367,14 +367,50 @@
                     <view key="view" contentMode="scaleToFill" id="q9f-iY-Ez8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfq-DA-rVO">
+                                <rect key="frame" x="16" y="256" width="343" height="300"/>
+                                <color key="backgroundColor" red="0.1804835796" green="0.038664728400000001" blue="0.22354209420000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="ckb-cb-wpB"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-iP-EB0">
+                                <rect key="frame" x="100.66666666666669" y="619" width="174" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="0JL-vx-s25"/>
+                                    <constraint firstAttribute="width" constant="174" id="QrU-mk-kFD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <state key="normal" title="Intenta nuevamente">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueToSecondImage:" destination="Q7B-pK-b6J" eventType="touchUpInside" id="r32-R5-S0I"/>
+                                    <action selector="tryAgainAction:" destination="C17-Px-atD" eventType="touchUpInside" id="fMR-kD-jDr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1804835796" green="0.038664728400000001" blue="0.22354209420000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="3dR-iP-EB0" firstAttribute="centerX" secondItem="q9f-iY-Ez8" secondAttribute="centerX" id="2Jy-Bj-HXn"/>
+                            <constraint firstItem="xfq-DA-rVO" firstAttribute="centerX" secondItem="q9f-iY-Ez8" secondAttribute="centerX" id="6ci-0F-CPQ"/>
+                            <constraint firstItem="xfq-DA-rVO" firstAttribute="leading" secondItem="6Rt-Ax-tBA" secondAttribute="leading" constant="16" id="IUG-ZT-XMu"/>
+                            <constraint firstItem="6Rt-Ax-tBA" firstAttribute="trailing" secondItem="xfq-DA-rVO" secondAttribute="trailing" constant="16" id="dN6-uh-g5P"/>
+                            <constraint firstItem="3dR-iP-EB0" firstAttribute="top" secondItem="xfq-DA-rVO" secondAttribute="bottom" constant="63" id="t5M-MD-hI6"/>
+                            <constraint firstItem="xfq-DA-rVO" firstAttribute="centerY" secondItem="q9f-iY-Ez8" secondAttribute="centerY" id="zXT-am-WHI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Rt-Ax-tBA"/>
                     </view>
                     <navigationItem key="navigationItem" id="IiJ-vt-bha"/>
+                    <connections>
+                        <outlet property="animationView" destination="xfq-DA-rVO" id="IDH-Yu-W2p"/>
+                        <outlet property="tryAgainButton" destination="3dR-iP-EB0" id="Qyn-q0-diC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lfi-Bw-bYK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2740" y="138"/>
+            <point key="canvasLocation" x="2740" y="137.4384236453202"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wpm-Hw-kjP">
