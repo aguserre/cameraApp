@@ -24,7 +24,7 @@ class SuccessViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         configureAnimation()
-        
+        print("SuccessView:")
         if let photosCount = photos {
             print(photosCount.count)
         }

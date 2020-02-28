@@ -24,13 +24,20 @@ class DniScannerViewController: UIViewController {
     @IBOutlet weak var backgroundCameraView: UIView!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var capturedImage: UIImageView!
-    
+    @IBOutlet weak var cameraButton: UIButton!    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("SelfieView:")
+
+        if let photosCount = photos {
+            print(photosCount.count)
+        }
+        
+        if let dniName = dniData?.name {
+            print(dniName)
+        }
+        
         setupView()
         setupCamera()
     }
@@ -43,15 +50,13 @@ class DniScannerViewController: UIViewController {
     private func setupView(){
         backgroundCameraView.layer.cornerRadius = 5
         cameraView.layer.cornerRadius = 5
-        cancelButton.isHidden = true
-        capturedImage.isHidden = true
-        titleLabel.text = "Ubicá el frente de tu DNI dentro del marco blanco"
-        infoLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos."
+        titleLabel.text = "Ubicá tu rostro dentro del marco"
+        infoLabel.text = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
     }
     
     private func setupCamera() {
          captureSession.beginConfiguration()
-         let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+         let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
          guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!), captureSession.canAddInput(videoDeviceInput)
              else {return}
          captureSession.addInput(videoDeviceInput)
@@ -79,18 +84,6 @@ class DniScannerViewController: UIViewController {
         }
         photoOutput.capturePhoto(with: photoSettings, delegate: self)
     }
-    
-    @IBAction func takeAnotherPhoto(_ sender: Any) {
-        self.backgroundCameraView.backgroundColor = .white
-        self.cameraButton.isHidden = false
-        self.cancelButton.isHidden = true
-        self.capturedImage.image = nil
-        self.capturedImage.isHidden = true
-        captureSession.startRunning()
-    }
-    
-
-
 }
 
 extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
@@ -103,11 +96,10 @@ extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    self.capturedImage.image = image
+                    
                 }
             }
         }
-
     }
 
     @available(iOS 11.0, *)
@@ -120,8 +112,15 @@ extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
         self.backgroundCameraView.backgroundColor = .systemPurple
         self.captureSession.stopRunning()
         self.cameraButton.isHidden = true
-        self.cancelButton.isHidden = false
-        self.capturedImage.isHidden = false
-        self.capturedImage.image = image
+        self.photos?.append(image)
+        self.performSegue(withIdentifier: "goToDetailsView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is DetailsViewController {
+            let vc = segue.destination as? DetailsViewController
+            vc?.photos = self.photos
+            vc?.dniData = self.dniData
+        }
     }
 }
