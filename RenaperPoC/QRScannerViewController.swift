@@ -116,10 +116,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
     }
     
-    func goToSuccessViewController() {
-        
-    }
-    
     @IBAction func capturePhoto(_ sender: Any) {
         let photoSettings = AVCapturePhotoSettings()
         if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
@@ -177,12 +173,20 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
         self.session.stopRunning()
         self.photos?.append(image)
         self.capturedImage.image = image
-        
-        if isSecondImage {
-            let destinationVC = SuccessViewController()
-            destinationVC.photos = self.photos
-            destinationVC.dniData = self.dniObject
-            navigationController?.pushViewController(destinationVC, animated: true)
+        if isSecondImage{
+            goToSuccessView()
+        }
+    }
+    
+    func goToSuccessView() {
+        performSegue(withIdentifier: "goToSuccessView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is SuccessViewController {
+            let vc = segue.destination as? SuccessViewController
+            vc?.photos = self.photos
+            vc?.dniData = self.dniObject
         }
     }
 }

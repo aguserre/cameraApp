@@ -12,6 +12,9 @@ import AVFoundation
 
 class DniScannerViewController: UIViewController {
     
+    var photos: [UIImage]?
+    var dniData: DniModel?
+    
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     var captureDevice: AVCaptureDevice!
@@ -30,7 +33,6 @@ class DniScannerViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupCamera()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

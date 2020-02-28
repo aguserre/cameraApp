@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F25BC142409877600CAFA62 /* errorAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F25BC122409877600CAFA62 /* errorAnimation.json */; };
+		0F25BC152409877600CAFA62 /* succesAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F25BC132409877600CAFA62 /* succesAnimation.json */; };
 		0F7F96A62407F8AD00EA753E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A52407F8AD00EA753E /* AppDelegate.swift */; };
 		0F7F96A82407F8AD00EA753E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A72407F8AD00EA753E /* SceneDelegate.swift */; };
 		0F7F96AA2407F8AD00EA753E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A92407F8AD00EA753E /* ViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F25BC122409877600CAFA62 /* errorAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = errorAnimation.json; sourceTree = "<group>"; };
+		0F25BC132409877600CAFA62 /* succesAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = succesAnimation.json; sourceTree = "<group>"; };
 		0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RenaperPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A22407F8AD00EA753E /* RenaperPoC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenaperPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A52407F8AD00EA753E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				0F7F96C324085C9500EA753E /* QRScannerViewController.swift */,
 				0F7F96C52408646000EA753E /* DniModel.swift */,
 				0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */,
+				0F25BC122409877600CAFA62 /* errorAnimation.json */,
+				0F25BC132409877600CAFA62 /* succesAnimation.json */,
 			);
 			path = RenaperPoC;
 			sourceTree = "<group>";
@@ -95,7 +101,6 @@
 				8E6F17C11E32BA797A1C88DB /* Pods-RenaperPoC.debug.xcconfig */,
 				76E1CD6924081E09A697442C /* Pods-RenaperPoC.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -168,6 +173,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F7F96B22407F8AF00EA753E /* LaunchScreen.storyboard in Resources */,
+				0F25BC142409877600CAFA62 /* errorAnimation.json in Resources */,
+				0F25BC152409877600CAFA62 /* succesAnimation.json in Resources */,
 				0F7F96AF2407F8AF00EA753E /* Assets.xcassets in Resources */,
 				0F7F96AD2407F8AD00EA753E /* Main.storyboard in Resources */,
 			);
