@@ -10,6 +10,7 @@
 		0F25BC142409877600CAFA62 /* errorAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F25BC122409877600CAFA62 /* errorAnimation.json */; };
 		0F25BC152409877600CAFA62 /* succesAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F25BC132409877600CAFA62 /* succesAnimation.json */; };
 		0F25BC1724099E3700CAFA62 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F25BC1624099E3700CAFA62 /* DetailsViewController.swift */; };
+		0F480788240D936E00C0C6D2 /* SuccessIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F480787240D936E00C0C6D2 /* SuccessIdentityViewController.swift */; };
 		0F7F96A62407F8AD00EA753E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A52407F8AD00EA753E /* AppDelegate.swift */; };
 		0F7F96A82407F8AD00EA753E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A72407F8AD00EA753E /* SceneDelegate.swift */; };
 		0F7F96AA2407F8AD00EA753E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96A92407F8AD00EA753E /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		0F25BC122409877600CAFA62 /* errorAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = errorAnimation.json; sourceTree = "<group>"; };
 		0F25BC132409877600CAFA62 /* succesAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = succesAnimation.json; sourceTree = "<group>"; };
 		0F25BC1624099E3700CAFA62 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		0F480787240D936E00C0C6D2 /* SuccessIdentityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessIdentityViewController.swift; sourceTree = "<group>"; };
 		0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RenaperPoC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A22407F8AD00EA753E /* RenaperPoC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenaperPoC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7F96A52407F8AD00EA753E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				0F7F96C324085C9500EA753E /* QRScannerViewController.swift */,
 				0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */,
 				0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */,
+				0F480787240D936E00C0C6D2 /* SuccessIdentityViewController.swift */,
 				0F25BC1624099E3700CAFA62 /* DetailsViewController.swift */,
 				0F7F96AE2407F8AF00EA753E /* Assets.xcassets */,
 				0F7F96B02407F8AF00EA753E /* LaunchScreen.storyboard */,
@@ -232,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F480788240D936E00C0C6D2 /* SuccessIdentityViewController.swift in Sources */,
 				0F7F96AA2407F8AD00EA753E /* ViewController.swift in Sources */,
 				0F7F96C22408447A00EA753E /* GradientExtension.swift in Sources */,
 				0F25BC1724099E3700CAFA62 /* DetailsViewController.swift in Sources */,

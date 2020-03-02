@@ -198,12 +198,56 @@
                         <outlet property="cameraView" destination="ZXA-Ue-0vv" id="XTQ-ok-p4F"/>
                         <outlet property="infoLabel" destination="2Ac-5v-Pqh" id="Us9-j3-d2N"/>
                         <outlet property="titleLabel" destination="6Zi-PT-pAY" id="BXL-cb-7O3"/>
-                        <segue destination="Aa8-fZ-m6s" kind="show" identifier="goToDetailsView" id="AOJ-nM-EbT"/>
+                        <segue destination="Elt-Dr-3zC" kind="show" identifier="goToSuccessIdentity" id="4Fu-8k-ZyQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvS-nn-zyJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3549.5999999999999" y="137.4384236453202"/>
+        </scene>
+        <!--Success Identity View Controller-->
+        <scene sceneID="Vx1-ka-wT5">
+            <objects>
+                <viewController id="Elt-Dr-3zC" customClass="SuccessIdentityViewController" customModule="RenaperPoC" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ycv-MM-kxI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDS-SE-7vY">
+                                <rect key="frame" x="60" y="76" width="294" height="26.333333333333329"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1I-E4-EoL">
+                                <rect key="frame" x="87" y="248" width="240" height="240"/>
+                                <color key="backgroundColor" red="0.1662188768" green="0.051874928180000002" blue="0.21503764389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="hf4-Lj-Qc5"/>
+                                    <constraint firstAttribute="width" constant="240" id="nEg-0H-Hdb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1662188768" green="0.051874928180000002" blue="0.21503764389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BZy-Ol-RV2" firstAttribute="trailing" secondItem="JDS-SE-7vY" secondAttribute="trailing" constant="60" id="Usd-7M-ng7"/>
+                            <constraint firstItem="o1I-E4-EoL" firstAttribute="centerX" secondItem="ycv-MM-kxI" secondAttribute="centerX" id="ZHw-AR-IIW"/>
+                            <constraint firstItem="JDS-SE-7vY" firstAttribute="leading" secondItem="BZy-Ol-RV2" secondAttribute="leading" constant="60" id="kbr-Cl-hUI"/>
+                            <constraint firstItem="JDS-SE-7vY" firstAttribute="top" secondItem="BZy-Ol-RV2" secondAttribute="top" constant="32" id="ryV-Tg-0Ga"/>
+                            <constraint firstItem="o1I-E4-EoL" firstAttribute="centerY" secondItem="ycv-MM-kxI" secondAttribute="centerY" id="vbw-2n-3Qa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BZy-Ol-RV2"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XBF-BY-UfD"/>
+                    <connections>
+                        <outlet property="animationView" destination="o1I-E4-EoL" id="Zir-5q-p0b"/>
+                        <outlet property="tittleLabel" destination="JDS-SE-7vY" id="87v-CA-FTM"/>
+                        <segue destination="Aa8-fZ-m6s" kind="show" identifier="goToDetailsView" id="P4l-V7-79H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="88h-GJ-cSb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4329" y="136"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="QMz-EU-EwY">
@@ -520,7 +564,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVf-Qt-FwS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4280.8000000000002" y="136.69950738916256"/>
+            <point key="canvasLocation" x="5114" y="138"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="neb-df-0EJ">

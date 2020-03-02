@@ -89,7 +89,7 @@ extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
                     self.captureSession.stopRunning()
                     self.cameraButton.isHidden = true
                     self.photos?.append(image)
-                    self.performSegue(withIdentifier: "goToDetailsView", sender: self)
+                    self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
                 }
             }
         }
@@ -106,12 +106,12 @@ extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
         self.captureSession.stopRunning()
         self.cameraButton.isHidden = true
         self.photos?.append(image)
-        self.performSegue(withIdentifier: "goToDetailsView", sender: self)
+        self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DetailsViewController {
-            let vc = segue.destination as? DetailsViewController
+        if segue.destination is SuccessIdentityViewController {
+            let vc = segue.destination as? SuccessIdentityViewController
             vc?.photos = self.photos
             vc?.dniData = self.dniData
         }
