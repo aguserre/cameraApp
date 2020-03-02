@@ -15,9 +15,9 @@ class SuccessViewController: UIViewController {
     var dniData: DniModel?
     private var errorLoading = true
     
+    @IBOutlet weak var errorTitleLabel: UILabel!
     @IBOutlet weak var animationView: UIView!
     @IBOutlet weak var tryAgainButton: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +34,11 @@ class SuccessViewController: UIViewController {
             tryAgainButton.layer.borderWidth = 1
             tryAgainButton.layer.borderColor = UIColor.white.cgColor
             animationString = "errorAnimation"
-            
+            errorTitleLabel.text = "No pudimos procesar las fotos del DNI"
         } else {
             animationString = "succesAnimation"
             tryAgainButton.isHidden = true
+            errorTitleLabel.isHidden = true
         }
         
         let animation = AnimationView(name: animationString)

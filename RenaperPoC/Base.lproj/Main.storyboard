@@ -660,11 +660,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a40-jN-VUd">
-                                <rect key="frame" x="77" y="138" width="260" height="260"/>
+                                <rect key="frame" x="87" y="248" width="240" height="240"/>
                                 <color key="backgroundColor" red="0.1804835796" green="0.038664728400000001" blue="0.22354209420000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="08v-NR-IIg"/>
-                                    <constraint firstAttribute="width" constant="260" id="J89-3z-hlu"/>
+                                    <constraint firstAttribute="height" constant="240" id="08v-NR-IIg"/>
+                                    <constraint firstAttribute="width" constant="240" id="J89-3z-hlu"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1YX-74-bQ5">
@@ -681,19 +681,29 @@
                                     <action selector="tryAgainAction:" destination="8y6-RZ-pzQ" eventType="touchUpInside" id="PVU-zo-90r"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vs-F2-Dyg">
+                                <rect key="frame" x="60" y="76" width="294" height="26.333333333333329"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1804835796" green="0.038664728400000001" blue="0.22354209420000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="a40-jN-VUd" firstAttribute="centerY" secondItem="6vp-Zp-dym" secondAttribute="centerY" constant="-100" id="FM7-iI-FBa"/>
+                            <constraint firstItem="a40-jN-VUd" firstAttribute="centerY" secondItem="6vp-Zp-dym" secondAttribute="centerY" id="FM7-iI-FBa"/>
+                            <constraint firstItem="zRs-wO-Y1R" firstAttribute="trailing" secondItem="5vs-F2-Dyg" secondAttribute="trailing" constant="60" id="IPE-UZ-ruC"/>
                             <constraint firstItem="1YX-74-bQ5" firstAttribute="centerX" secondItem="6vp-Zp-dym" secondAttribute="centerX" id="Pi8-qf-g7J"/>
                             <constraint firstItem="zRs-wO-Y1R" firstAttribute="bottom" secondItem="1YX-74-bQ5" secondAttribute="bottom" constant="80" id="gzD-Nr-iG9"/>
+                            <constraint firstItem="5vs-F2-Dyg" firstAttribute="leading" secondItem="zRs-wO-Y1R" secondAttribute="leading" constant="60" id="mYt-gf-ig7"/>
                             <constraint firstItem="a40-jN-VUd" firstAttribute="centerX" secondItem="6vp-Zp-dym" secondAttribute="centerX" id="ods-p4-t7N"/>
+                            <constraint firstItem="5vs-F2-Dyg" firstAttribute="top" secondItem="zRs-wO-Y1R" secondAttribute="top" constant="32" id="xuI-Y9-Lmz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zRs-wO-Y1R"/>
                     </view>
                     <navigationItem key="navigationItem" id="fhr-IB-XmW"/>
                     <connections>
                         <outlet property="animationView" destination="a40-jN-VUd" id="Wu2-hm-RcM"/>
+                        <outlet property="errorTitleLabel" destination="5vs-F2-Dyg" id="DdW-0u-Rsu"/>
                         <outlet property="tryAgainButton" destination="1YX-74-bQ5" id="J04-Jf-rxg"/>
                         <segue destination="hSZ-Aa-cXm" kind="show" identifier="goToTakeSelfie" id="R9t-pA-xze"/>
                     </connections>
