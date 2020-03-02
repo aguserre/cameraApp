@@ -11,13 +11,13 @@ import AVFoundation
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    var video = AVCaptureVideoPreviewLayer()
-    let photoOutput = AVCapturePhotoOutput()
-    let session = AVCaptureSession()
-    let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-    var photos: [UIImage]? = []
+    private var video = AVCaptureVideoPreviewLayer()
+    private let photoOutput = AVCapturePhotoOutput()
+    private let session = AVCaptureSession()
+    private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    private var photos: [UIImage]? = []
     var dniObject = DniModel()
-    var isSecondImage = false
+    private var isSecondImage = false
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -39,7 +39,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
     }
     
-    func setupView() {
+    private func setupView() {
         self.photos?.removeAll()
         backgroundCameraView.backgroundColor = .white
         backgroundCameraView.layer.cornerRadius = 5
@@ -57,7 +57,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         subtitleLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos"
     }
     
-    func setupViewAfterTakeFirstPhoto() {
+    private func setupViewAfterTakeFirstPhoto() {
         titleLabel.text = "Confirmá la foto del DNI"
         self.backgroundCameraView.backgroundColor = .systemPurple
         self.cameraButton.isHidden = true
@@ -70,7 +70,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         continueButton.layer.borderColor = UIColor.white.cgColor
     }
     
-    func setupViewToTakeSecondPhoto() {
+    private func setupViewToTakeSecondPhoto() {
         self.backgroundCameraView.backgroundColor = .white
         self.cameraButton.isHidden = false
         self.isSecondImage = true
@@ -80,7 +80,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         titleLabel.text = "Ubicá el dorso de tu DNI dentro del marco blanco"
     }
     
-    func setupCamera() {
+    private func setupCamera() {
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
             session.addInput(input)

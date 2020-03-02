@@ -13,7 +13,7 @@ class SuccessViewController: UIViewController {
 
     var photos: [UIImage]?
     var dniData: DniModel?
-    var errorLoading = true
+    private var errorLoading = true
     
     @IBOutlet weak var animationView: UIView!
     @IBOutlet weak var tryAgainButton: UIButton!
@@ -22,20 +22,10 @@ class SuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        
-        configureAnimation()
-        print("SuccessView:")
-        if let photosCount = photos {
-            print(photosCount.count)
-        }
-        
-        if let dniName = dniData?.name {
-            print(dniName)
-        }
-        
+        setupAnimation()
     }
     
-    func configureAnimation() {
+    private func setupAnimation() {
         var animationString = ""
         
         if errorLoading{
@@ -71,7 +61,7 @@ class SuccessViewController: UIViewController {
             viewWithTag.removeFromSuperview()
         }
         errorLoading = false
-        configureAnimation()
+        setupAnimation()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

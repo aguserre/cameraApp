@@ -12,8 +12,8 @@ class DetailsViewController: UIViewController {
 
     var photos: [UIImage]?
     var dniData: DniModel?
+    private var isProfesional = false
     
-    //Textfields
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var dniTextfield: UITextField!
     @IBOutlet weak var birthDayTextfield: UITextField!
@@ -40,7 +40,7 @@ class DetailsViewController: UIViewController {
         configureView()
     }
     
-    func configureView() {
+    private func configureView() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         titleLabel.text = "Confirmanos tus datos"
         footerImage.image = UIImage(named: "welcomeBackground")
@@ -82,5 +82,26 @@ class DetailsViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    @IBAction func tapSwitch(_ sender: Any) {
+        if switchLabel.isOn {
+            isProfesional = true
+        } else {
+            isProfesional = false
+        }
+    }
+    @IBAction func confirmData(_ sender: Any) {
+        
+        print("Cantidad de fotos:")
+        print(photos?.count)
+        print("")
+        print("Datos DNI:")
+        print(dniData?.name)
+        print(dniData?.lastName)
+        print(dniData?.birthDate)
+        print("")
+        print("Seleccionó profesional:")
+        print(isProfesional)
+        
     }
 }

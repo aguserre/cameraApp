@@ -15,10 +15,10 @@ class DniScannerViewController: UIViewController {
     var photos: [UIImage]?
     var dniData: DniModel?
     
-    let captureSession = AVCaptureSession()
-    var previewLayer: AVCaptureVideoPreviewLayer?
-    var captureDevice: AVCaptureDevice!
-    let photoOutput = AVCapturePhotoOutput()
+    private let captureSession = AVCaptureSession()
+    private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var captureDevice: AVCaptureDevice!
+    private let photoOutput = AVCapturePhotoOutput()
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var backgroundCameraView: UIView!
@@ -30,23 +30,8 @@ class DniScannerViewController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
-        print("SelfieView:")
-
-        if let photosCount = photos {
-            print(photosCount.count)
-        }
-        
-        if let dniName = dniData?.name {
-            print(dniName)
-        }
-        
         setupView()
         setupCamera()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
     }
     
     private func setupView(){
