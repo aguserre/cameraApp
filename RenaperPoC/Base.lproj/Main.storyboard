@@ -241,7 +241,7 @@
                     <navigationItem key="navigationItem" id="XBF-BY-UfD"/>
                     <connections>
                         <outlet property="animationView" destination="o1I-E4-EoL" id="Zir-5q-p0b"/>
-                        <outlet property="tittleLabel" destination="JDS-SE-7vY" id="87v-CA-FTM"/>
+                        <outlet property="titleLabel" destination="JDS-SE-7vY" id="z9O-ES-wDM"/>
                         <segue destination="Aa8-fZ-m6s" kind="show" identifier="goToDetailsView" id="P4l-V7-79H"/>
                     </connections>
                 </viewController>

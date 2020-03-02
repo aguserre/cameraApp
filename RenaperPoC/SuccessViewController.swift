@@ -36,7 +36,7 @@ class SuccessViewController: UIViewController {
             animationString = "errorAnimation"
             errorTitleLabel.text = "No pudimos procesar las fotos del DNI"
         } else {
-            animationString = "succesAnimation"
+            animationString = "successAnimation"
             tryAgainButton.isHidden = true
             errorTitleLabel.isHidden = true
         }

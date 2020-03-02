@@ -14,17 +14,17 @@ class SuccessIdentityViewController: UIViewController {
     var photos: [UIImage]?
     var dniData: DniModel?
     
-    @IBOutlet weak var tittleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var animationView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tittleLabel.text = "¡Genial! Ya validamos tu identidad"
+        titleLabel.text = "¡Genial! Ya validamos tu identidad"
         setupAnimation()
     }
     
     private func setupAnimation(){
-        let animation = AnimationView(name: "succesAnimation")
+        let animation = AnimationView(name: "successAnimation")
         animationView.addSubview(animation)
         animation.frame = animationView.bounds
         animation.loopMode = .playOnce
