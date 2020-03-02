@@ -85,7 +85,11 @@ extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    
+                    self.backgroundCameraView.backgroundColor = .systemPurple
+                    self.captureSession.stopRunning()
+                    self.cameraButton.isHidden = true
+                    self.photos?.append(image)
+                    self.performSegue(withIdentifier: "goToDetailsView", sender: self)
                 }
             }
         }

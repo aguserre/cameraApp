@@ -59,11 +59,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     private func setupViewAfterTakeFirstPhoto() {
         titleLabel.text = "Confirmá la foto del DNI"
-        self.backgroundCameraView.backgroundColor = .systemPurple
-        self.cameraButton.isHidden = true
-        self.continueButton.isHidden = false
-        self.takeAnotherPhotoButton.isHidden = false
-        self.capturedImage.isHidden = false
+        backgroundCameraView.backgroundColor = .systemPurple
+        cameraButton.isHidden = true
+        continueButton.isHidden = false
+        takeAnotherPhotoButton.isHidden = false
+        capturedImage.isHidden = false
         continueButton.layer.cornerRadius = 25
         continueButton.clipsToBounds = true
         continueButton.layer.borderWidth = 1
@@ -71,12 +71,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     private func setupViewToTakeSecondPhoto() {
-        self.backgroundCameraView.backgroundColor = .white
-        self.cameraButton.isHidden = false
-        self.isSecondImage = true
-        self.continueButton.isHidden = true
-        self.takeAnotherPhotoButton.isHidden = true
-        self.capturedImage.isHidden = true
+        backgroundCameraView.backgroundColor = .white
+        cameraButton.isHidden = false
+        isSecondImage = true
+        continueButton.isHidden = true
+        takeAnotherPhotoButton.isHidden = true
+        capturedImage.isHidden = true
         titleLabel.text = "Ubicá el dorso de tu DNI dentro del marco blanco"
     }
     
@@ -158,12 +158,13 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    self.backgroundCameraView.backgroundColor = .systemPurple
+                    setupViewAfterTakeFirstPhoto()
                     self.session.stopRunning()
-                    self.cameraButton.isHidden = true
-                    self.capturedImage.isHidden = false
                     self.photos?.append(image)
                     self.capturedImage.image = image
+                    if isSecondImage{
+                        goToSuccessView()
+                    }
                 }
             }
         }
