@@ -643,9 +643,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1YX-74-bQ5">
-                                <rect key="frame" x="109" y="626" width="157" height="48"/>
+                                <rect key="frame" x="105" y="626" width="165" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="GpN-1l-Iwo"/>
+                                    <constraint firstAttribute="width" constant="165" id="ilI-1G-uvG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Intentar nuevamente">
