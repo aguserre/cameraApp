@@ -51,7 +51,9 @@ class DniScannerViewController: UIViewController {
     
     private func setupView(){
         backgroundCameraView.layer.cornerRadius = 5
+        backgroundCameraView.clipsToBounds = true
         cameraView.layer.cornerRadius = 5
+        cameraView.clipsToBounds = true
         titleLabel.text = "Ubicá tu rostro dentro del marco"
         infoLabel.text = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
     }
