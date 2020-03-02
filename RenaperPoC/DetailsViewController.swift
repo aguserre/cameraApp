@@ -22,6 +22,11 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var cuilTextfield: UITextField!
     @IBOutlet weak var celularTextfield: UITextField!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dniLabel: UILabel!
+    @IBOutlet weak var birthDayLabel: UILabel!
+    @IBOutlet weak var sexLabel: UILabel!
+    
     @IBOutlet weak var switchLabel: UISwitch!
     
     @IBOutlet weak var confirmButton: UIButton!
@@ -41,21 +46,25 @@ class DetailsViewController: UIViewController {
         footerImage.image = UIImage(named: "welcomeBackground")
 
         if let dniName = dniData?.name, let dniLastName = dniData?.lastName {
+            nameLabel.textColor = .lightGray
             nameTextfield.isEnabled = false
             nameTextfield.text = dniName + " " + dniLastName
         }
         
         if let dniNumber = dniData?.dniNumber {
+            dniLabel.textColor = .lightGray
             dniTextfield.isEnabled = false
             dniTextfield.text = dniNumber
         }
         
         if let birthDate = dniData?.birthDate {
+            birthDayLabel.textColor = .lightGray
             birthDayTextfield.isEnabled = false
             birthDayTextfield.text = birthDate
         }
         
         if let sex = dniData?.sex {
+            sexLabel.textColor = .lightGray
             sexTextfield.isEnabled = false
             sexTextfield.text = sex
         }
@@ -67,7 +76,6 @@ class DetailsViewController: UIViewController {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.navigationController?.popToRootViewController(animated: true)
     }
