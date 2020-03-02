@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="1079.2" y="138.17733990147784"/>
         </scene>
-        <!--Dni Scanner View Controller-->
+        <!--Selfie View Controller-->
         <scene sceneID="1yR-Mz-L7L">
             <objects>
-                <viewController id="hSZ-Aa-cXm" customClass="DniScannerViewController" customModule="RenaperPoC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hSZ-Aa-cXm" customClass="SelfieViewController" customModule="RenaperPoC" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zBE-5e-pKZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

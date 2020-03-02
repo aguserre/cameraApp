@@ -17,7 +17,7 @@
 		0F7F96AD2407F8AD00EA753E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F96AB2407F8AD00EA753E /* Main.storyboard */; };
 		0F7F96AF2407F8AF00EA753E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F96AE2407F8AF00EA753E /* Assets.xcassets */; };
 		0F7F96B22407F8AF00EA753E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F96B02407F8AF00EA753E /* LaunchScreen.storyboard */; };
-		0F7F96C024080CC600EA753E /* DniScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */; };
+		0F7F96C024080CC600EA753E /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96BF24080CC600EA753E /* SelfieViewController.swift */; };
 		0F7F96C22408447A00EA753E /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C12408447A00EA753E /* GradientExtension.swift */; };
 		0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C324085C9500EA753E /* QRScannerViewController.swift */; };
 		0F7F96C62408646000EA753E /* DniModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C52408646000EA753E /* DniModel.swift */; };
@@ -39,7 +39,7 @@
 		0F7F96AE2407F8AF00EA753E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F7F96B12407F8AF00EA753E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F7F96B32407F8AF00EA753E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DniScannerViewController.swift; sourceTree = "<group>"; };
+		0F7F96BF24080CC600EA753E /* SelfieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		0F7F96C12408447A00EA753E /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		0F7F96C324085C9500EA753E /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		0F7F96C52408646000EA753E /* DniModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DniModel.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 				0F7F96A92407F8AD00EA753E /* ViewController.swift */,
 				0F7F96C324085C9500EA753E /* QRScannerViewController.swift */,
 				0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */,
-				0F7F96BF24080CC600EA753E /* DniScannerViewController.swift */,
+				0F7F96BF24080CC600EA753E /* SelfieViewController.swift */,
 				0F480787240D936E00C0C6D2 /* SuccessIdentityViewController.swift */,
 				0F25BC1624099E3700CAFA62 /* DetailsViewController.swift */,
 				0F7F96AE2407F8AF00EA753E /* Assets.xcassets */,
@@ -240,7 +240,7 @@
 				0F7F96C22408447A00EA753E /* GradientExtension.swift in Sources */,
 				0F25BC1724099E3700CAFA62 /* DetailsViewController.swift in Sources */,
 				0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */,
-				0F7F96C024080CC600EA753E /* DniScannerViewController.swift in Sources */,
+				0F7F96C024080CC600EA753E /* SelfieViewController.swift in Sources */,
 				0F7F96A62407F8AD00EA753E /* AppDelegate.swift in Sources */,
 				0F7F96C62408646000EA753E /* DniModel.swift in Sources */,
 				0FBF5CDB24096A1400D2E66C /* SuccessViewController.swift in Sources */,

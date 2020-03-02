@@ -66,8 +66,8 @@ class SuccessViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DniScannerViewController {
-            let vc = segue.destination as? DniScannerViewController
+        if segue.destination is SelfieViewController {
+            let vc = segue.destination as? SelfieViewController
             vc?.photos = self.photos
             vc?.dniData = self.dniData
         }

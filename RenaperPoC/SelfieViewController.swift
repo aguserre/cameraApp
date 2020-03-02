@@ -1,5 +1,5 @@
 //
-//  DniScannerViewController.swift
+//  SelfieViewController.swift
 //  RenaperPoC
 //
 //  Created by AGUSTIN ERRECALDE on 27/02/2020.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 
-class DniScannerViewController: UIViewController {
+class SelfieViewController: UIViewController {
     
     var photos: [UIImage]?
     var dniData: DniModel?
@@ -75,7 +75,7 @@ class DniScannerViewController: UIViewController {
     }
 }
 
-extension DniScannerViewController: AVCapturePhotoCaptureDelegate {
+extension SelfieViewController: AVCapturePhotoCaptureDelegate {
 
     func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
 
