@@ -24,15 +24,14 @@ import AVFoundation
 import UIKit
 
 struct CameraSetup {
-    
-    let photoOutput = AVCapturePhotoOutput()
-    
+        
     static var shared = CameraSetup()
     private init(){}
     
     mutating func setupCamera(cameraPosition:AVCaptureDevice.Position,
                               cameraView: UIView,
-                              isSecondImage: Bool,
+                              isNeedScanCode: Bool,
+                              photoOutput: AVCaptureOutput,
                               delegate: AVCaptureMetadataOutputObjectsDelegate?) -> AVCaptureSession{
         
         let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
@@ -45,13 +44,13 @@ struct CameraSetup {
         }catch{
             print(error.localizedDescription)
         }
-        
+
         if session.canAddOutput(photoOutput){
             session.sessionPreset = .photo
             session.addOutput(photoOutput)
         }
         
-        if !isSecondImage {
+        if isNeedScanCode {
             let output = AVCaptureMetadataOutput()
             if  session.canAddOutput(output){
                 session.addOutput(output)

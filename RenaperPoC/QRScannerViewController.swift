@@ -14,6 +14,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     var cameraSetup = CameraSetup.shared
     private var session = AVCaptureSession()
+    let photoOutput = AVCapturePhotoOutput()
     private var photos: [UIImage]? = []
     var dniObject = DniModel()
     private var isSecondImage = false
@@ -82,7 +83,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     private func setupCamera() {
         session = cameraSetup.setupCamera(cameraPosition: .back,
                                                  cameraView: self.cameraView,
-                                                 isSecondImage: self.isSecondImage,
+                                                 isNeedScanCode: self.isSecondImage,
+                                                 photoOutput: self.photoOutput,
                                                  delegate: self)
         session.startRunning()
     }
@@ -92,26 +94,31 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         if metadataObjects.count != 0{
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject{
                 if object.type == AVMetadataObject.ObjectType.pdf417{
-                    
                     if let objectString = object.stringValue {
-                        let objects: [String] = objectString.components(separatedBy: "@")
-                        dniObject.processNumber = objects[0]
-                        dniObject.lastName = objects[1]
-                        dniObject.name = objects[2]
-                        dniObject.sex = objects[3]
-                        dniObject.dniNumber = objects[4]
-                        dniObject.copy = objects[5]
-                        dniObject.birthDate = objects[6]
-                        dniObject.createDate = objects[7]
+                        buildDniStruct(objectString: objectString)
                     }
                 }
             }
         }
     }
     
+    private func buildDniStruct(objectString: String){
+        let objects: [String] = objectString.components(separatedBy: "@")
+        dniObject.processNumber = objects[0]
+        dniObject.lastName = objects[1]
+        dniObject.name = objects[2]
+        dniObject.sex = objects[3]
+        dniObject.dniNumber = objects[4]
+        dniObject.copy = objects[5]
+        dniObject.birthDate = objects[6]
+        dniObject.createDate = objects[7]
+    }
+    
     @IBAction func capturePhoto(_ sender: Any) {
         let photoSettings = AVCapturePhotoSettings()
-        cameraSetup.captureImage(photoSettings: photoSettings, photoOutput: cameraSetup.photoOutput, delegate: self)
+        cameraSetup.captureImage(photoSettings: photoSettings,
+                                 photoOutput: photoOutput,
+                                 delegate: self)
     }
     
     @IBAction func continueToSecondImage(_ sender: Any) {

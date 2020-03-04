@@ -15,11 +15,10 @@ class SelfieViewController: UIViewController {
     var photos: [UIImage]?
     var dniData: DniModel?
     
-//    private let captureSession = AVCaptureSession()
-//    private var previewLayer: AVCaptureVideoPreviewLayer?
-//    private var captureDevice: AVCaptureDevice!
-//    private let photoOutput = AVCapturePhotoOutput()
-    
+    var cameraSetup = CameraSetup.shared
+    private var session = AVCaptureSession()
+    let photoOutput = AVCapturePhotoOutput()
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var backgroundCameraView: UIView!
@@ -32,7 +31,7 @@ class SelfieViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
         setupView()
-        //CameraSetup.shared.setupCamera(cameraView: self.cameraView)
+        setupCamera()
     }
     
     private func setupView(){
@@ -44,35 +43,20 @@ class SelfieViewController: UIViewController {
         infoLabel.text = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
     }
     
-//    private func setupCamera() {
-//         captureSession.beginConfiguration()
-//         let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
-//         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!), captureSession.canAddInput(videoDeviceInput)
-//             else {return}
-//         captureSession.addInput(videoDeviceInput)
-//
-//         guard captureSession.canAddOutput(photoOutput) else {return}
-//
-//         captureSession.sessionPreset = .photo
-//         captureSession.addOutput(photoOutput)
-//
-//
-//         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//         previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-//         previewLayer?.frame = cameraView.bounds
-//         cameraView.layer.addSublayer(previewLayer!)
-//
-//         captureSession.commitConfiguration()
-//         captureSession.startRunning()
-//    }
+    private func setupCamera() {
+        session = cameraSetup.setupCamera(cameraPosition: .front,
+                                                 cameraView: self.cameraView,
+                                                 isNeedScanCode: false,
+                                                 photoOutput: self.photoOutput,
+                                                 delegate: nil)
+        session.startRunning()
+    }
     
     @IBAction func capturePicture(_ sender: Any) {
-        
         let photoSettings = AVCapturePhotoSettings()
-        if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
-            photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: firstAvailablePreviewPhotoPixelFormatTypes]
-        }
-        //photoOutput.capturePhoto(with: photoSettings, delegate: self)
+        cameraSetup.captureImage(photoSettings: photoSettings,
+                                 photoOutput: self.photoOutput,
+                                 delegate: self)
     }
 }
 
@@ -87,10 +71,10 @@ extension SelfieViewController: AVCapturePhotoCaptureDelegate {
 
                 if let image = UIImage(data: dataImage) {
                     self.backgroundCameraView.backgroundColor = .systemPurple
-                    //self.captureSession.stopRunning()
+                    self.session.stopRunning()
                     self.cameraButton.isHidden = true
                     self.photos?.append(image)
-                    self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
+                    goToSuccessView()
                 }
             }
         }
@@ -104,10 +88,14 @@ extension SelfieViewController: AVCapturePhotoCaptureDelegate {
                 return
         }
         self.backgroundCameraView.backgroundColor = .systemPurple
-        //self.captureSession.stopRunning()
+        self.session.stopRunning()
         self.cameraButton.isHidden = true
         self.photos?.append(image)
-        self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
+        goToSuccessView()
+    }
+    
+    func goToSuccessView() {
+        performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
