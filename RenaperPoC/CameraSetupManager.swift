@@ -9,12 +9,12 @@
 import AVFoundation
 import UIKit
 
-struct CameraSetupManager {
+class CameraSetupManager {
         
-    static var shared = CameraSetupManager()
+    static let shared = CameraSetupManager()
     private init(){}
     
-    mutating func setupCamera(cameraPosition:AVCaptureDevice.Position,
+    func setupCamera(cameraPosition:AVCaptureDevice.Position,
                               cameraView: UIView,
                               isNeedScanCode: Bool,
                               photoOutput: AVCaptureOutput,
@@ -61,5 +61,4 @@ struct CameraSetupManager {
         }
         photoOutput.capturePhoto(with: photoSettings, delegate: delegate)
     }
-    
 }

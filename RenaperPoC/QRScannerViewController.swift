@@ -17,7 +17,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     let photoOutput = AVCapturePhotoOutput()
     private var photos: [UIImage]? = []
     var dniObject = DniModel()
-    private var isSecondImage = false
+    private var isFirstImage = true
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -36,7 +36,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         self.navigationController?.navigationBar.isHidden = true
         setupView()
         setupCamera()
-
     }
     
     private func setupView() {
@@ -73,7 +72,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     private func setupViewToTakeSecondPhoto() {
         backgroundCameraView.backgroundColor = .white
         cameraButton.isHidden = false
-        isSecondImage = true
         continueButton.isHidden = true
         takeAnotherPhotoButton.isHidden = true
         capturedImage.isHidden = true
@@ -83,7 +81,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     private func setupCamera() {
         session = cameraSetup.setupCamera(cameraPosition: .back,
                                                  cameraView: self.cameraView,
-                                                 isNeedScanCode: self.isSecondImage,
+                                                 isNeedScanCode: self.isFirstImage,
                                                  photoOutput: self.photoOutput,
                                                  delegate: self)
         session.startRunning()
@@ -122,12 +120,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     @IBAction func continueToSecondImage(_ sender: Any) {
-        isSecondImage = true
+        isFirstImage = false
         session.startRunning()
         setupViewToTakeSecondPhoto()
     }
     
     @IBAction func takeAnotherPhoto(_ sender: Any) {
+        isFirstImage = true
         setupView()
         session.startRunning()
     }
@@ -147,7 +146,7 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
                     self.session.stopRunning()
                     self.photos?.append(image)
                     self.capturedImage.image = image
-                    if isSecondImage{
+                    if !isFirstImage{
                         goToSuccessView()
                     }
                 }
@@ -166,7 +165,7 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
         self.session.stopRunning()
         self.photos?.append(image)
         self.capturedImage.image = image
-        if isSecondImage{
+        if !isFirstImage{
             goToSuccessView()
         }
     }
