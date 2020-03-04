@@ -11,10 +11,9 @@ import AVFoundation
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    private var video = AVCaptureVideoPreviewLayer()
-    private let photoOutput = AVCapturePhotoOutput()
-    private let session = AVCaptureSession()
-    private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    
+    var cameraSetup = CameraSetup.shared
+    private var session = AVCaptureSession()
     private var photos: [UIImage]? = []
     var dniObject = DniModel()
     private var isSecondImage = false
@@ -81,28 +80,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     private func setupCamera() {
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice!)
-            session.addInput(input)
-        }catch{
-            print(error.localizedDescription)
-        }
-        
-        guard session.canAddOutput(photoOutput) else {return}
-        session.sessionPreset = .photo
-        session.addOutput(photoOutput)
-        if !isSecondImage{
-            let output = AVCaptureMetadataOutput()
-            session.addOutput(output)
-            
-            output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            output.metadataObjectTypes = [AVMetadataObject.ObjectType.pdf417]
-        }
-        video = AVCaptureVideoPreviewLayer(session: session)
-        video.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        video.frame = cameraView.bounds
-        cameraView.layer.addSublayer(video)
-        
+        session = cameraSetup.setupCamera(cameraPosition: .back,
+                                                 cameraView: self.cameraView,
+                                                 isSecondImage: self.isSecondImage,
+                                                 delegate: self)
         session.startRunning()
     }
     
@@ -130,10 +111,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     @IBAction func capturePhoto(_ sender: Any) {
         let photoSettings = AVCapturePhotoSettings()
-        if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
-            photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: firstAvailablePreviewPhotoPixelFormatTypes]
-        }
-        photoOutput.capturePhoto(with: photoSettings, delegate: self)
+        cameraSetup.captureImage(photoSettings: photoSettings, photoOutput: cameraSetup.photoOutput, delegate: self)
     }
     
     @IBAction func continueToSecondImage(_ sender: Any) {
