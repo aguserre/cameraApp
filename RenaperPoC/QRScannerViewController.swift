@@ -12,7 +12,7 @@ import AVFoundation
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     
-    var cameraSetup = CameraSetup.shared
+    var cameraSetup = CameraSetupManager.shared
     private var session = AVCaptureSession()
     let photoOutput = AVCapturePhotoOutput()
     private var photos: [UIImage]? = []
@@ -153,7 +153,6 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
                 }
             }
         }
-
     }
 
     @available(iOS 11.0, *)

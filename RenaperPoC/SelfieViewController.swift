@@ -15,7 +15,7 @@ class SelfieViewController: UIViewController {
     var photos: [UIImage]?
     var dniData: DniModel?
     
-    var cameraSetup = CameraSetup.shared
+    var cameraSetup = CameraSetupManager.shared
     private var session = AVCaptureSession()
     let photoOutput = AVCapturePhotoOutput()
 
