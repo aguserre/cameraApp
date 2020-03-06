@@ -13,14 +13,14 @@ import AVFoundation
 class SelfieViewController: UIViewController {
     
     var photos: [UIImage]?
-    var photoCounter = 0
+    private var photoCounter = 0
     var dniData: DniModel?
     
     var cameraSetup = CameraSetupManager.shared
     private var session = AVCaptureSession()
     let photoOutput = AVCapturePhotoOutput()
     
-    enum PhotoNumber {
+    private enum PhotoNumber {
         case firstPhoto
         case secondPhoto
         case thirdPhoto
