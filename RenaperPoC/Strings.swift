@@ -26,6 +26,8 @@ let SUCCESS_VALIDATION = "¡Genial! Ya validamos tu identidad"
 //Selfie view
 let TITLE_SELFIE = "Ubicá tu rostro dentro del marco"
 let INFO_FIRST_IMAGE = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
+let INFO_SECOND_IMAGE = "En esta selfie, sonríe"
+let INFO_THIRD_IMAGE = "En esta selfie levanta las cejas"
 
 //Details view
 let DATA_CONFIRMATED = "Confirmanos tus datos"
