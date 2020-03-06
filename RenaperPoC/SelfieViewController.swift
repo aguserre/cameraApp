@@ -39,8 +39,8 @@ class SelfieViewController: UIViewController {
         backgroundCameraView.clipsToBounds = true
         cameraView.layer.cornerRadius = 5
         cameraView.clipsToBounds = true
-        titleLabel.text = "Ubicá tu rostro dentro del marco"
-        infoLabel.text = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
+        titleLabel.text = TITLE_SELFIE
+        infoLabel.text = INFO_FIRST_IMAGE
     }
     
     private func setupCamera() {

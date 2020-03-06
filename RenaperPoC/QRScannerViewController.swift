@@ -52,12 +52,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         cameraButton.isHidden = false
         capturedImage.isHidden = true
         
-        titleLabel.text = "Ubicá el frente de tu DNI dentro del marco blanco"
-        subtitleLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos"
+        titleLabel.text = FIRST_DNI_IMAGE_TITLE
+        subtitleLabel.text = FIRST_DNI_IMAGE_SUBTITLE
     }
     
     private func setupViewAfterTakeFirstPhoto() {
-        titleLabel.text = "Confirmá la foto del DNI"
+        titleLabel.text = CONFIRM_DNI_IMAGE
         backgroundCameraView.backgroundColor = .systemPurple
         cameraButton.isHidden = true
         continueButton.isHidden = false
@@ -75,7 +75,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         continueButton.isHidden = true
         takeAnotherPhotoButton.isHidden = true
         capturedImage.isHidden = true
-        titleLabel.text = "Ubicá el dorso de tu DNI dentro del marco blanco"
+        titleLabel.text = SECOND_DNI_IMAGE_TITLE
     }
     
     private func setupCamera() {

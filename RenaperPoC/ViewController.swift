@@ -36,9 +36,9 @@ class ViewController: UIViewController {
         centralImage.image = UIImage(named: centralImageName)
         footerImage.image = UIImage(named: footerImageName)
         headLabel.text = "T u s  d a t o s".uppercased()
-        bigTitleLabel.text = "Validemos tu identidad"
-        subtitleLabel.text = "Buscá tu DNI para tomarle unas fotos y preparate para una selfie."
-        warningLabel.text = "Recorda que si te registras como empresa, el DNI debe ser del titular o representante legal."
+        bigTitleLabel.text = VALIDATE_IDENTITY
+        subtitleLabel.text = APP_INFO
+        warningLabel.text = WARNING_WELCOME
         continueButton.layer.cornerRadius = 25
         continueButton.clipsToBounds = true
         continueButton.applyGradient(colours: [.blue, .purple], locations: [0.0,1.0])
