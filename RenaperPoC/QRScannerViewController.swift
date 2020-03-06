@@ -10,21 +10,26 @@ import UIKit
 import AVFoundation
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-
     
     var cameraSetup = CameraSetupManager.shared
     private var session = AVCaptureSession()
     let photoOutput = AVCapturePhotoOutput()
     private var photos: [UIImage]? = []
     var dniObject = DniModel()
-    private var isFirstImage = true
+    private var isNeedScanCode = true
+    private var photoCounter = 0
+    
+    private enum Step {
+        case initialView
+        case standByView
+        case finalView
+    }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var backgroundCameraView: UIView!
-    
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var takeAnotherPhotoButton: UIButton!
@@ -34,57 +39,61 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
-        setupView()
         setupCamera()
+        setupView(step: .initialView)
     }
     
-    private func setupView() {
-        self.photos?.removeAll()
-        backgroundCameraView.backgroundColor = .white
+    private func setupView(step: Step) {
+        subtitleLabel.text = FIRST_DNI_IMAGE_SUBTITLE
         backgroundCameraView.layer.cornerRadius = 5
         backgroundCameraView.clipsToBounds = true
-        
         cameraView.layer.cornerRadius = 5
         cameraView.clipsToBounds = true
-        
-        continueButton.isHidden = true
-        takeAnotherPhotoButton.isHidden = true
-        cameraButton.isHidden = false
-        capturedImage.isHidden = true
-        
-        titleLabel.text = FIRST_DNI_IMAGE_TITLE
-        subtitleLabel.text = FIRST_DNI_IMAGE_SUBTITLE
-    }
-    
-    private func setupViewAfterTakeFirstPhoto() {
-        titleLabel.text = CONFIRM_DNI_IMAGE
-        backgroundCameraView.backgroundColor = .systemPurple
-        cameraButton.isHidden = true
-        continueButton.isHidden = false
-        takeAnotherPhotoButton.isHidden = false
-        capturedImage.isHidden = false
         continueButton.layer.cornerRadius = 25
         continueButton.clipsToBounds = true
         continueButton.layer.borderWidth = 1
         continueButton.layer.borderColor = UIColor.white.cgColor
-    }
-    
-    private func setupViewToTakeSecondPhoto() {
-        backgroundCameraView.backgroundColor = .white
-        cameraButton.isHidden = false
-        continueButton.isHidden = true
-        takeAnotherPhotoButton.isHidden = true
-        capturedImage.isHidden = true
-        titleLabel.text = SECOND_DNI_IMAGE_TITLE
+        
+        switch step {
+            case .initialView:
+                self.photos?.removeAll()
+                titleLabel.text = FIRST_DNI_IMAGE_TITLE
+                backgroundCameraView.backgroundColor = .white
+                cameraButton.isHidden = false
+                continueButton.isHidden = true
+                takeAnotherPhotoButton.isHidden = true
+                capturedImage.isHidden = true
+                photoCounter = 0
+                session.startRunning()
+                
+            case .standByView:
+                titleLabel.text = CONFIRM_DNI_IMAGE
+                backgroundCameraView.backgroundColor = .systemPurple
+                cameraButton.isHidden = true
+                continueButton.isHidden = false
+                takeAnotherPhotoButton.isHidden = false
+                capturedImage.isHidden = false
+                photoCounter = 1
+                session.stopRunning()
+                
+            case .finalView:
+                titleLabel.text = SECOND_DNI_IMAGE_TITLE
+                backgroundCameraView.backgroundColor = .white
+                cameraButton.isHidden = false
+                continueButton.isHidden = true
+                takeAnotherPhotoButton.isHidden = true
+                capturedImage.isHidden = true
+                photoCounter = 2
+                session.startRunning()
+        }
     }
     
     private func setupCamera() {
         session = cameraSetup.setupCamera(cameraPosition: .back,
                                                  cameraView: self.cameraView,
-                                                 isNeedScanCode: self.isFirstImage,
+                                                 isNeedScanCode: self.isNeedScanCode,
                                                  photoOutput: self.photoOutput,
                                                  delegate: self)
-        session.startRunning()
     }
     
     
@@ -120,14 +129,14 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     @IBAction func continueToSecondImage(_ sender: Any) {
-        isFirstImage = false
+        isNeedScanCode = false
         session.startRunning()
-        setupViewToTakeSecondPhoto()
+        setupView(step: .finalView)
     }
     
     @IBAction func takeAnotherPhoto(_ sender: Any) {
-        isFirstImage = true
-        setupView()
+        isNeedScanCode = true
+        setupView(step: .initialView)
         session.startRunning()
     }
 }
@@ -142,13 +151,7 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    setupViewAfterTakeFirstPhoto()
-                    self.session.stopRunning()
-                    self.photos?.append(image)
-                    self.capturedImage.image = image
-                    if !isFirstImage{
-                        goToSuccessView()
-                    }
+                    processImage(image: image)
                 }
             }
         }
@@ -161,12 +164,23 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
               let image =  UIImage(data: data)  else {
                 return
         }
-        setupViewAfterTakeFirstPhoto()
+        processImage(image: image)
+    }
+    
+    func processImage(image: UIImage) {
         self.session.stopRunning()
         self.photos?.append(image)
         self.capturedImage.image = image
-        if !isFirstImage{
-            goToSuccessView()
+        
+        switch photoCounter {
+            case 0:
+                setupView(step: .standByView)
+            case 1:
+                setupView(step: .finalView)
+            case 2:
+                goToSuccessView()
+            default:
+                setupView(step: .initialView)
         }
     }
     
