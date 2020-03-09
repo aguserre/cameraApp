@@ -33,10 +33,10 @@ class SuccessViewController: UIViewController {
             tryAgainButton.clipsToBounds = true
             tryAgainButton.layer.borderWidth = 1
             tryAgainButton.layer.borderColor = UIColor.white.cgColor
-            animationString = ERROR_ANIMATION
-            errorTitleLabel.text = ERROR_TITLE
+            animationString = "errorAnimation"
+            errorTitleLabel.text = "No pudimos procesar las fotos del DNI"
         } else {
-            animationString = SUCCESS_ANIMATION
+            animationString = "successAnimation"
             tryAgainButton.isHidden = true
             errorTitleLabel.isHidden = true
         }
