@@ -22,6 +22,7 @@
 		0F7F96C424085C9500EA753E /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C324085C9500EA753E /* QRScannerViewController.swift */; };
 		0F7F96C62408646000EA753E /* DniModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F96C52408646000EA753E /* DniModel.swift */; };
 		0FBF5CDB24096A1400D2E66C /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */; };
+		0FEA4C752416C1960078615F /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA4C742416C1960078615F /* Strings.swift */; };
 		5E58FEE495B8A118740E1D2B /* Pods_RenaperPoC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F58A3DB95120D7024810E86 /* Pods_RenaperPoC.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		0F7F96C324085C9500EA753E /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		0F7F96C52408646000EA753E /* DniModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DniModel.swift; sourceTree = "<group>"; };
 		0FBF5CDA24096A1400D2E66C /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		0FEA4C742416C1960078615F /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		76E1CD6924081E09A697442C /* Pods-RenaperPoC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenaperPoC.release.xcconfig"; path = "Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC.release.xcconfig"; sourceTree = "<group>"; };
 		8E6F17C11E32BA797A1C88DB /* Pods-RenaperPoC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenaperPoC.debug.xcconfig"; path = "Target Support Files/Pods-RenaperPoC/Pods-RenaperPoC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 		0F7F96A42407F8AD00EA753E /* RenaperPoC */ = {
 			isa = PBXGroup;
 			children = (
+				0FEA4C742416C1960078615F /* Strings.swift */,
 				0F7F96A52407F8AD00EA753E /* AppDelegate.swift */,
 				0F7F96A72407F8AD00EA753E /* SceneDelegate.swift */,
 				0F7F96A92407F8AD00EA753E /* ViewController.swift */,
@@ -244,6 +247,7 @@
 				0F7F96A62407F8AD00EA753E /* AppDelegate.swift in Sources */,
 				0F7F96C62408646000EA753E /* DniModel.swift in Sources */,
 				0FBF5CDB24096A1400D2E66C /* SuccessViewController.swift in Sources */,
+				0FEA4C752416C1960078615F /* Strings.swift in Sources */,
 				0F7F96A82407F8AD00EA753E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
