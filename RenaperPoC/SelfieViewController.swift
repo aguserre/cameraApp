@@ -13,12 +13,18 @@ import AVFoundation
 class SelfieViewController: UIViewController {
     
     var photos: [UIImage]?
+    private var photoCounter = 0
     var dniData: DniModel?
     
-    private let captureSession = AVCaptureSession()
-    private var previewLayer: AVCaptureVideoPreviewLayer?
-    private var captureDevice: AVCaptureDevice!
-    private let photoOutput = AVCapturePhotoOutput()
+    var cameraSetup = CameraSetupManager.shared
+    private var session = AVCaptureSession()
+    let photoOutput = AVCapturePhotoOutput()
+    
+    private enum PhotoNumber {
+        case firstPhoto
+        case secondPhoto
+        case thirdPhoto
+    }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var backgroundCameraView: UIView!
@@ -30,48 +36,49 @@ class SelfieViewController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
-        setupView()
         setupCamera()
+        setupView(photoNumber: .firstPhoto)
     }
     
-    private func setupView(){
+    private func setupView(photoNumber: PhotoNumber){
+        backgroundCameraView.backgroundColor = .white
         backgroundCameraView.layer.cornerRadius = 5
         backgroundCameraView.clipsToBounds = true
         cameraView.layer.cornerRadius = 5
         cameraView.clipsToBounds = true
-        titleLabel.text = "Ubicá tu rostro dentro del marco"
-        infoLabel.text = "En esta selfie, guiñá un ojo, si tenes anteojos, no los uses."
+        titleLabel.text = TITLE_SELFIE
+
+        setPhotoInfo(photoNumber: photoNumber)
+        session.startRunning()
+    }
+    
+    private func setPhotoInfo(photoNumber: PhotoNumber){
+        switch photoNumber {
+            case .firstPhoto:
+                infoLabel.text = INFO_FIRST_IMAGE
+                photoCounter = 0
+            case .secondPhoto:
+                infoLabel.text = INFO_SECOND_IMAGE
+                photoCounter = 1
+            case .thirdPhoto:
+                infoLabel.text = INFO_THIRD_IMAGE
+                photoCounter = 2
+        }
     }
     
     private func setupCamera() {
-         captureSession.beginConfiguration()
-         let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
-         guard let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice!), captureSession.canAddInput(videoDeviceInput)
-             else {return}
-         captureSession.addInput(videoDeviceInput)
-         
-         guard captureSession.canAddOutput(photoOutput) else {return}
-         
-         captureSession.sessionPreset = .photo
-         captureSession.addOutput(photoOutput)
-         
-         
-         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-         previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-         previewLayer?.frame = cameraView.bounds
-         cameraView.layer.addSublayer(previewLayer!)
-        
-         captureSession.commitConfiguration()
-         captureSession.startRunning()
+        session = cameraSetup.setupCamera(cameraPosition: .front,
+                                                 cameraView: self.cameraView,
+                                                 isNeedScanCode: false,
+                                                 photoOutput: self.photoOutput,
+                                                 delegate: nil)
     }
     
     @IBAction func capturePicture(_ sender: Any) {
-        
         let photoSettings = AVCapturePhotoSettings()
-        if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
-            photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: firstAvailablePreviewPhotoPixelFormatTypes]
-        }
-        photoOutput.capturePhoto(with: photoSettings, delegate: self)
+        cameraSetup.captureImage(photoSettings: photoSettings,
+                                 photoOutput: self.photoOutput,
+                                 delegate: self)
     }
 }
 
@@ -85,11 +92,7 @@ extension SelfieViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    self.backgroundCameraView.backgroundColor = .systemPurple
-                    self.captureSession.stopRunning()
-                    self.cameraButton.isHidden = true
-                    self.photos?.append(image)
-                    self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
+                    processImage(image: image)
                 }
             }
         }
@@ -97,16 +100,33 @@ extension SelfieViewController: AVCapturePhotoCaptureDelegate {
 
     @available(iOS 11.0, *)
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-
+        
         guard let data = photo.fileDataRepresentation(),
               let image =  UIImage(data: data)  else {
                 return
         }
+        processImage(image: image)
+    }
+    
+    private func processImage(image: UIImage) {
+        self.session.stopRunning()
         self.backgroundCameraView.backgroundColor = .systemPurple
-        self.captureSession.stopRunning()
-        self.cameraButton.isHidden = true
         self.photos?.append(image)
-        self.performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
+
+        switch photoCounter {
+            case 0:
+                setupView(photoNumber: .secondPhoto)
+            case 1:
+                setupView(photoNumber: .thirdPhoto)
+            case 2:
+                goToSuccessView()
+            default:
+                setupView(photoNumber: .firstPhoto)
+        }
+    }
+    
+    private func goToSuccessView() {
+        performSegue(withIdentifier: "goToSuccessIdentity", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

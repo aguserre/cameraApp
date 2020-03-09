@@ -42,7 +42,7 @@ class DetailsViewController: UIViewController {
     
     private func configureView() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        titleLabel.text = "Confirmanos tus datos"
+        titleLabel.text = DATA_CONFIRMATED
         footerImage.image = UIImage(named: "welcomeBackground")
 
         if let dniName = dniData?.name, let dniLastName = dniData?.lastName {

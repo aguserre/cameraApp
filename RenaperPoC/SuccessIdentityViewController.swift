@@ -19,12 +19,12 @@ class SuccessIdentityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "¡Genial! Ya validamos tu identidad"
+        titleLabel.text = SUCCESS_VALIDATION
         setupAnimation()
     }
     
     private func setupAnimation(){
-        let animation = AnimationView(name: "successAnimation")
+        let animation = AnimationView(name: SUCCESS_ANIMATION)
         animationView.addSubview(animation)
         animation.frame = animationView.bounds
         animation.loopMode = .playOnce
