@@ -10,26 +10,21 @@ import UIKit
 import AVFoundation
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
-    var cameraSetup = CameraSetupManager.shared
-    private var session = AVCaptureSession()
-    let photoOutput = AVCapturePhotoOutput()
+
+    private var video = AVCaptureVideoPreviewLayer()
+    private let photoOutput = AVCapturePhotoOutput()
+    private let session = AVCaptureSession()
+    private let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
     private var photos: [UIImage]? = []
     var dniObject = DniModel()
-    private var isNeedScanCode = true
-    private var photoCounter = 0
-    
-    private enum Step {
-        case initialView
-        case standByView
-        case finalView
-    }
+    private var isSecondImage = false
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var backgroundCameraView: UIView!
+    
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var takeAnotherPhotoButton: UIButton!
@@ -39,61 +34,76 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
+        setupView()
         setupCamera()
-        setupView(step: .initialView)
+
     }
     
-    private func setupView(step: Step) {
-        subtitleLabel.text = FIRST_DNI_IMAGE_SUBTITLE
+    private func setupView() {
+        self.photos?.removeAll()
+        backgroundCameraView.backgroundColor = .white
         backgroundCameraView.layer.cornerRadius = 5
         backgroundCameraView.clipsToBounds = true
+        
         cameraView.layer.cornerRadius = 5
         cameraView.clipsToBounds = true
+        
+        continueButton.isHidden = true
+        takeAnotherPhotoButton.isHidden = true
+        cameraButton.isHidden = false
+        capturedImage.isHidden = true
+        
+        titleLabel.text = "Ubicá el frente de tu DNI dentro del marco blanco"
+        subtitleLabel.text = "Asegurate que se vea tu DNI completo y nítido, sin sombras o reflejos sobre los datos"
+    }
+    
+    private func setupViewAfterTakeFirstPhoto() {
+        titleLabel.text = "Confirmá la foto del DNI"
+        backgroundCameraView.backgroundColor = .systemPurple
+        cameraButton.isHidden = true
+        continueButton.isHidden = false
+        takeAnotherPhotoButton.isHidden = false
+        capturedImage.isHidden = false
         continueButton.layer.cornerRadius = 25
         continueButton.clipsToBounds = true
         continueButton.layer.borderWidth = 1
         continueButton.layer.borderColor = UIColor.white.cgColor
-        
-        switch step {
-            case .initialView:
-                self.photos?.removeAll()
-                titleLabel.text = FIRST_DNI_IMAGE_TITLE
-                backgroundCameraView.backgroundColor = .white
-                cameraButton.isHidden = false
-                continueButton.isHidden = true
-                takeAnotherPhotoButton.isHidden = true
-                capturedImage.isHidden = true
-                photoCounter = 0
-                session.startRunning()
-                
-            case .standByView:
-                titleLabel.text = CONFIRM_DNI_IMAGE
-                backgroundCameraView.backgroundColor = .systemPurple
-                cameraButton.isHidden = true
-                continueButton.isHidden = false
-                takeAnotherPhotoButton.isHidden = false
-                capturedImage.isHidden = false
-                photoCounter = 1
-                session.stopRunning()
-                
-            case .finalView:
-                titleLabel.text = SECOND_DNI_IMAGE_TITLE
-                backgroundCameraView.backgroundColor = .white
-                cameraButton.isHidden = false
-                continueButton.isHidden = true
-                takeAnotherPhotoButton.isHidden = true
-                capturedImage.isHidden = true
-                photoCounter = 2
-                session.startRunning()
-        }
+    }
+    
+    private func setupViewToTakeSecondPhoto() {
+        backgroundCameraView.backgroundColor = .white
+        cameraButton.isHidden = false
+        isSecondImage = true
+        continueButton.isHidden = true
+        takeAnotherPhotoButton.isHidden = true
+        capturedImage.isHidden = true
+        titleLabel.text = "Ubicá el dorso de tu DNI dentro del marco blanco"
     }
     
     private func setupCamera() {
-        session = cameraSetup.setupCamera(cameraPosition: .back,
-                                                 cameraView: self.cameraView,
-                                                 isNeedScanCode: self.isNeedScanCode,
-                                                 photoOutput: self.photoOutput,
-                                                 delegate: self)
+        do {
+            let input = try AVCaptureDeviceInput(device: captureDevice!)
+            session.addInput(input)
+        }catch{
+            print(error.localizedDescription)
+        }
+        
+        guard session.canAddOutput(photoOutput) else {return}
+        session.sessionPreset = .photo
+        session.addOutput(photoOutput)
+        if !isSecondImage{
+            let output = AVCaptureMetadataOutput()
+            session.addOutput(output)
+            
+            output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            output.metadataObjectTypes = [AVMetadataObject.ObjectType.pdf417]
+        }
+        video = AVCaptureVideoPreviewLayer(session: session)
+        video.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        video.frame = cameraView.bounds
+        cameraView.layer.addSublayer(video)
+        
+        session.startRunning()
     }
     
     
@@ -101,42 +111,39 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         if metadataObjects.count != 0{
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject{
                 if object.type == AVMetadataObject.ObjectType.pdf417{
+                    
                     if let objectString = object.stringValue {
-                        buildDniStruct(objectString: objectString)
+                        let objects: [String] = objectString.components(separatedBy: "@")
+                        dniObject.processNumber = objects[0]
+                        dniObject.lastName = objects[1]
+                        dniObject.name = objects[2]
+                        dniObject.sex = objects[3]
+                        dniObject.dniNumber = objects[4]
+                        dniObject.copy = objects[5]
+                        dniObject.birthDate = objects[6]
+                        dniObject.createDate = objects[7]
                     }
                 }
             }
         }
     }
     
-    private func buildDniStruct(objectString: String){
-        let objects: [String] = objectString.components(separatedBy: "@")
-        dniObject.processNumber = objects[0]
-        dniObject.lastName = objects[1]
-        dniObject.name = objects[2]
-        dniObject.sex = objects[3]
-        dniObject.dniNumber = objects[4]
-        dniObject.copy = objects[5]
-        dniObject.birthDate = objects[6]
-        dniObject.createDate = objects[7]
-    }
-    
     @IBAction func capturePhoto(_ sender: Any) {
         let photoSettings = AVCapturePhotoSettings()
-        cameraSetup.captureImage(photoSettings: photoSettings,
-                                 photoOutput: photoOutput,
-                                 delegate: self)
+        if let firstAvailablePreviewPhotoPixelFormatTypes = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
+            photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: firstAvailablePreviewPhotoPixelFormatTypes]
+        }
+        photoOutput.capturePhoto(with: photoSettings, delegate: self)
     }
     
     @IBAction func continueToSecondImage(_ sender: Any) {
-        isNeedScanCode = false
+        isSecondImage = true
         session.startRunning()
-        setupView(step: .finalView)
+        setupViewToTakeSecondPhoto()
     }
     
     @IBAction func takeAnotherPhoto(_ sender: Any) {
-        isNeedScanCode = true
-        setupView(step: .initialView)
+        setupView()
         session.startRunning()
     }
 }
@@ -151,10 +158,17 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
             if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
 
                 if let image = UIImage(data: dataImage) {
-                    processImage(image: image)
+                    setupViewAfterTakeFirstPhoto()
+                    self.session.stopRunning()
+                    self.photos?.append(image)
+                    self.capturedImage.image = image
+                    if isSecondImage{
+                        goToSuccessView()
+                    }
                 }
             }
         }
+
     }
 
     @available(iOS 11.0, *)
@@ -164,23 +178,12 @@ extension QRScannerViewController: AVCapturePhotoCaptureDelegate {
               let image =  UIImage(data: data)  else {
                 return
         }
-        processImage(image: image)
-    }
-    
-    func processImage(image: UIImage) {
+        setupViewAfterTakeFirstPhoto()
         self.session.stopRunning()
         self.photos?.append(image)
         self.capturedImage.image = image
-        
-        switch photoCounter {
-            case 0:
-                setupView(step: .standByView)
-            case 1:
-                setupView(step: .finalView)
-            case 2:
-                goToSuccessView()
-            default:
-                setupView(step: .initialView)
+        if isSecondImage{
+            goToSuccessView()
         }
     }
     
